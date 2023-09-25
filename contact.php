@@ -124,10 +124,10 @@ $c_msg = $_POST['c_msg'];
     $run_query = mysqli_query($conn, $c_inquiry);
 
     if ($run_query){
-        echo '<script>alert("Inquiry Send to Admin.")</script>';
+        echo '<script>swal("Completed","Your Inquiry has been sent successfully to our administrators.", "success");</script>';
     }
     else{
-        echo '<script>alert("Inquiry not Send to Admin.")</script>';
+        echo '<script>swal("Failed", "Inquiry has not been sent.");</script>';
     }
 }
 ?>

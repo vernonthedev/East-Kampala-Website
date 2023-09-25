@@ -49,10 +49,10 @@ $conn->close();
 
 <div class="container">
         <div class="row">
-            <div class="col-12 p-4 main-content mt-5">
+            <div class="col-12 col-md-12 col-xs-12 p-4 main-content mt-5">
                 <!-- main content -->
                 <h5>Download Audio Sermons</h5>
-                <table class="table table-responsive table-bordered table-hover table-striped">
+                <table class="table table-striped table-responsive table-bordered table-hover table-striped">
                     <thead class="thead-inverse">
                         <tr class="bg-secondary ">
                             <th class="h6">Index</th>
