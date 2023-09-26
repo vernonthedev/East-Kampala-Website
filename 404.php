@@ -3,7 +3,6 @@
 <head>
 <title>Page Not Found | East Kampala SDA Church</title>
 <?php include'style.php'; ?>
-
 </head>
 <body>
 
@@ -21,7 +20,5 @@
 </div>
 </div>
 </section>
-
-<?php include'footer.php'; ?>
 </body>
 </html>

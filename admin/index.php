@@ -233,7 +233,7 @@ session_start();
 
                                         <?php
                                         include'config.php';
-                                        $view_inquiry = "select * from contact_inquiry";
+                                        $view_inquiry = "SELECT * FROM contact_inquiry";
                                         $run_query = mysqli_query($conn, $view_inquiry);
                                         if($run_query-> num_rows > 0){
 

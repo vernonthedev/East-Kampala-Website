@@ -193,7 +193,7 @@ blockquote p,.blockquote p{font-size:16px!important}
 .single-causes .causes-content{width:100%}
 .mission-image{margin-left:15px;margin-right:15px}
 .about-video{bottom:50%;-webkit-transform:translateY(80%);transform:translateY(80%)}
-.slider_area .banner_slider.owl-carousel .owl-item img {height: 200px;}
+.slider_area .banner_slider.owl-carousel .owl-item img {height: 500px;}
 .owl-carousel .owl-nav button.owl-next, .owl-carousel .owl-nav button.owl-prev{height: 30px;width: 30px;font-size: 23px;border: 0px;}
 
 .mean-container .mean-nav ul li a{font-weight: 700;}
@@ -267,7 +267,7 @@ blockquote p,.blockquote p{font-size:16px!important}
 .default-btn{font-size:14px;padding:10px 14px}
 .optional-btn{font-size:14px;margin-left:0;padding:10px 14px}
 .feature-card{border-right:none}
-.slider_area .banner_slider.owl-carousel .owl-item img{height: 400px;}
+.slider_area .banner_slider.owl-carousel .owl-item img{height: 500px;}
 .about-item h3{font-size:26px;margin:5px 0 10px}
 .about-item .about-btn{margin-top:15px;margin-bottom:30px}
 .about-item.about-item-two{padding-left:0;margin-top:30px}

@@ -162,7 +162,7 @@ while($row = mysqli_fetch_assoc($run_query)) {
               <p>
               <?php echo $row['event_content']; ?>
               </p>
-              <button type="button" class="read_more_btn"><a href="events.php" class="event-btn-one">View More..</a></button>
+              <button type="button" class="read_more_btn"><a href="events.php?id=<?php echo $row['event_id']; ?>" class="event-btn-one">View More..</a></button>
             </div>
           </div>
 <?php
@@ -238,7 +238,7 @@ while($row = mysqli_fetch_assoc($run_query)) {
               <p>
               <?php echo $row['event_content']; ?>
               </p>
-              <button type="button" class="read_more_btn"><a href="events.php" class="event-btn-one">View More..</a></button>
+              <button type="button" class="read_more_btn"><a href="events.php?id=<?php echo $row['event_id']; ?>" class="event-btn-one">View More..</a></button>
             </div>
           </div>
 
@@ -359,6 +359,8 @@ while($row = mysqli_fetch_assoc($run_query)) {
     </div>
   </div>
 </section>
+
+
 
     <section class="team-section pt-50 pb-50">
         <div class="container">

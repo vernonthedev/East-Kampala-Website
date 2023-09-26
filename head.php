@@ -397,6 +397,6 @@
 </div></div></div>
 
 <!--The included modals-->
-<?php include'modals/donate.php';?>
-<?php include'modals/baptism.php';?>
-<?php include'modals/livestream.php';?>
+<?php include'assets/modals/donate.php';?>
+<?php include'assets/modals/baptism.php';?>
+<?php include'assets/modals/livestream.php';?>

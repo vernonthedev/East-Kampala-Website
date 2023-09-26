@@ -33,4 +33,4 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
 
 
-    <title>Title here</title>
+    <title>East Kampala</title>

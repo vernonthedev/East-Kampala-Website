@@ -118,15 +118,25 @@ if (!isset($_SESSION['admin_name'])) {
                         <li><a href="add-banner.php" data-key="t-maintenance">Add Banners</a></li>
                     </ul>
                 </li>
+                <!-- Added Qrcode section -->
+                <li>
+                    <a href="javascript: void(0);" class="has-arrow"> <i data-feather="image"></i> <span data-key="t-apps">Qrcodes</span> </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li>
+                            <a href="#"> <span data-key="t-calendar">All Qrcodes</span> </a>
+                        </li>
+                        <li>
+                            <a href="add-bulletin-qrcode.php"> <span data-key="t-chat">Add Sabbath Bulletin Qrcode</span> </a>
+                        </li>
+                    </ul>
+                </li>
 <!--                Added for file uploads-->
                 <li>
                     <a href="javascript: void(0);" class="has-arrow"> <i data-feather="file"></i> <span data-key="t-pages">Upload Files</span> </a>
                     <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="#" data-key="t-starter-page">List All File Uploads</a></li>
                         <li><a href="add-inverse.php" data-key="t-maintenance">Add Inverse Lesson</a></li>
                         <li><a href="add-audio.php" data-key="t-maintenance">Add Audio Sermons</a></li>
                         <li><a href="#" data-key="t-maintenance">Add Bulletins</a></li>
-                        <li><a href="#" data-key="t-maintenance">Add Devotions</a></li>
                     </ul>
                 </li>
 

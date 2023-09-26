@@ -1,6 +1,6 @@
 <?php
 include'config.php';
-$view_news = "select * from news";
+$view_news = "SELECT * FROM news ORDER BY news_id DESC";
 $run_query = mysqli_query($conn, $view_news);
 ?>
 <!doctype html>

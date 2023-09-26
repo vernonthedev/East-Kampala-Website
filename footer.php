@@ -1,4 +1,5 @@
-    <footer class="footer-section pt-50">
+
+ <footer class="footer-section pt-50">
         <div class="container">
             <div class="row">
                 <div class="col-lg-5 col-md-6 col-sm-6">
@@ -41,11 +42,23 @@
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                    <?php
+                    include'config.php';
+                    $view_data = "select * from bulletin_qrcodes";
+                    $run_query = mysqli_query($conn, $view_data);
+
+                    if($run_query-> num_rows > 0){
+                        while($row = mysqli_fetch_assoc($run_query)) {
+                    ?>
                     <div class="single-footer-widget">
-                        <div class="fb-page" data-href="https://www.facebook.com/EastKampalaSDA" data-tabs="timeline" data-width="" data-height="300" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/Thehelpinghands.Weareheretosearveyou/?ref=page_internalk" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/Thehelpinghands.Weareheretosearveyou/?ref=page_internal">Facebook</a></blockquote>
+                        <blockquote><img class="img img-fluid pr-3 mr-3" src="admin/bulletin-qrcode-gallery/<?php echo $row['bq_image']; ?>" alt="east kampala bulletin qrcode" width="100px">  Scan the <strong>QRCODE</strong> to easily access today's devotion.</blockquote>
                         </div>
                         <div id="fb-root"></div>
                     </div>
+                    <?php
+                    }
+                    }
+                    ?>
                 </div>
             </div>
         </div>

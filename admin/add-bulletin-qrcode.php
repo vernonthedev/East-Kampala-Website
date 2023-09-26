@@ -5,7 +5,7 @@ include'config.php';
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <title>Add Banner | EKC SDA Churchs</title>
+    <title>Add Bulletin Qrcode | EKC SDA Church</title>
     <?php include'style.php'; ?>
 </head>
 
@@ -26,12 +26,12 @@ include'config.php';
                         <div class="row">
                             <div class="col-12">
                                 <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                                    <h4 class="mb-sm-0 font-size-18">Add Banner</h4>
+                                    <h4 class="mb-sm-0 font-size-18">Add Bulletin Qrcode</h4>
 
                                     <div class="page-title-right">
                                         <ol class="breadcrumb m-0">
                                             <li class="breadcrumb-item"><a href="./">Admin</a></li>
-                                            <li class="breadcrumb-item active">Add Banner</li>
+                                            <li class="breadcrumb-item active">Add Bulletin Qrcode images</li>
                                         </ol>
                                     </div>
 
@@ -44,31 +44,24 @@ include'config.php';
                             <div class="col-12">
                                 <div class="card">
                                     <div class="card-header">
-                                        <h4 class="card-title">Add Banners</h4>
-                                        <p class="card-title-desc bg-danger text-white rounded">Please Note that when your uploading a banner image, the height of the image should be exactly 500px and any height of your choice."</p>
+                                        <h4 class="card-title">Add Qrcode</h4>
                                     </div>
                                     <div class="card-body p-4">
 
                                         <div class="row">
                                             <div class="col-lg-6">
                                                 <form action="" method="POST" enctype="multipart/form-data" >
-                                                    <div class="mb-3">
-                                                        <label for="example-text-input" class="form-label">Banner Title:</label>
-                                                        <input class="form-control" type="text"  id="example-text-input" name="banner_title" placeholder="Banner Title">
-                                                    </div>
 
                                                     <div class="mb-3">
-                                                        <label for="example-text-input" class="form-label">Banner Image:</label>
-                                                        <input class="form-control" type="file"  id="example-img-input" name="banner_img" placeholder="Banner Image">
-                                                    </div>
-
-                                                    <div class="mb-3">
-                                                        <label for="example-text-input" class="form-label">Banner Message:</label>
-                                                        <textarea class="form-control" rows="4" type="text"  id="example-msg-input" name="banner_msg" placeholder="Banner Message"></textarea>
+                                                        <label for="example-text-input" class="form-label">Qrcode Image:</label>
+                                                        <input class="form-control" type="file" id="example-img-input" name="gallery_img" placeholder="Gallery Image">
                                                     </div>
 
                                                     <div class="mt-4">
-                                                        <button type="submit" name="submit" class="btn btn-primary w-md">Upload Banner</button>
+                                                        <button type="submit" name="upload_img" class="btn btn-primary w-md"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-upload" viewBox="0 0 16 16">
+  <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
+  <path d="M7.646 1.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 2.707V11.5a.5.5 0 0 1-1 0V2.707L5.354 4.854a.5.5 0 1 1-.708-.708l3-3z"/>
+</svg> Upload Qrcode</button>
                                                     </div>
 
                                                 </form>
@@ -91,34 +84,33 @@ include'config.php';
 </html>
 
 <?php
-if (isset($_POST['submit'])) {
+if (isset($_POST['upload_img'])){
 
-$banner_title = $_POST['banner_title'];
-$banner_msg = $_POST['banner_msg'];
 
-$uploaddir = 'banner';
-    if(!is_dir($uploaddir)){
-        mkdir($uploaddir);
+
+$bulletin_qr_dir = 'bulletin-qrcode-gallery';
+    if(!is_dir($bulletin_qr_dir)){
+        mkdir($bulletin_qr_dir);
     }
 
-    $banner_img = $_FILES['banner_img']['name'];
-    $tmp_banner = $_FILES['banner_img']['tmp_name'];
-    $banner_path = $uploaddir ."/". $banner_img;
+    $gallery_img = $_FILES['gallery_img']['name'];
+    $tmp_gallery = $_FILES['gallery_img']['tmp_name'];
+    $gallery_path = $bulletin_qr_dir ."/". $gallery_img;
 
-    if(move_uploaded_file($tmp_banner, $banner_path)){
+    if(move_uploaded_file($tmp_gallery, $gallery_path)){
 
-        $insert_banner = "insert into banner_slider(id, banner_title, banner_content, banner_img) values('', '$banner_title', '$banner_msg', '$banner_img')";
-        $run_query = mysqli_query($conn, $insert_banner);
+        $insert_gallery = "INSERT INTO bulletin_qrcodes(bq_id, bq_image) values('', '$gallery_img')";
+        $run_query = mysqli_query($conn, $insert_gallery);
 
         if ($run_query){
-            echo '<script>swal("Compelete", "Banner Uploaded Successfully", "success");</script>';
+            echo '<script>swal("Compelete", "Qcode Uploaded Successfully", "success");</script>';
         }
         else{
-            echo '<script>swal("Failed", "Banner Not Uploaded Successfully", "error");</script>';
+            echo '<script>swal("Failed", "Qrcode not Uploaded to Gallery", "error");</script>';
         }
     }
     else{
-        echo '<script>swal("Failure", "Banner Not Uploaded", "success");</script>';
+        echo '<script>swal("Failure", "Qrcode Not Uploaded ", "error");</script>';
     }
 
 }
