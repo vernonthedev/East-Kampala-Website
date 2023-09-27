@@ -1,11 +1,16 @@
 <?php
 include'config.php';
 
-$detele_event = "DELETE FROM event_list WHERE event_id='" . $_GET["id"] . "'";
-if (mysqli_query($conn, $detele_event)) {
+$recieved_id = $_GET["id"];
+$delete_event = "DELETE FROM event_list WHERE event_id= ?";
+$results = $conn->prepare($delete_event);
+$results->execute([$recieved_id]);
+
+
+if ($results) {
     echo '<script>swal("Compelete", "Event Deleted Successfully", "success");</script>';
     echo '<script> window.location.href = "event-list.php";</script>';
 } else {
-    echo "Error deleting record: " . mysqli_error($conn);
+    echo '<script>swal("Failed", "Error Deleting Record", "error");</script>';
 }
 ?>

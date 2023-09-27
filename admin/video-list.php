@@ -1,7 +1,9 @@
 <?php
 include'config.php';
-$view_data = "select * from video_gallery";
-$run_query = mysqli_query($conn, $view_data);
+$view_data = "SELECT * FROM video_gallery";
+$run_query = $conn->prepare($view_data);
+$run_query->execute();
+$rows = $run_query->fetchAll();
 ?>
 <!doctype html>
 <html lang="en">
@@ -61,12 +63,10 @@ $run_query = mysqli_query($conn, $view_data);
                                                 </thead>
                                                 <tbody>
                                                     <?php
-                                            if($run_query-> num_rows > 0){
-
-                                            while($row = mysqli_fetch_assoc($run_query)) {
-                                                $v_id = $row['video_id'];
-                                                $v_title = $row['video_title'];
-                                                $v_location = $row['video_location'];
+                                                foreach($rows as $row){
+                                                $v_id = $row->video_id;
+                                                $v_title = $row->video_title;
+                                                $v_location = $row->video_location;
 
 
                                                     echo "<tr data-id='1'>
@@ -83,11 +83,6 @@ $run_query = mysqli_query($conn, $view_data);
                                                         </td>
                                                     </tr>";
                                             }
-                                            }
-                                            else{
-                                                echo "<span style='color:#fe0002;font-size:15px;'>Video Gallery is Empty.</span>";
-                                            }
-
                                              ?>
                                                 </tbody>
                                             </table>

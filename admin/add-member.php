@@ -108,8 +108,9 @@ $uploaddir = 'team-images';
 
     if(move_uploaded_file($tmp_member, $member_path)){
 
-        $insert_member = "insert into member_list(member_id, member_name, member_title, member_img) values('', '$member_name', '$member_title', '$member_img')";
-        $run_query = mysqli_query($conn, $insert_member);
+        $insert_member = "INSERT INTO member_list(member_id, member_name, member_title, member_img) VALUES(?, ?, ?, ?)";
+        $run_query = $conn->prepare($insert_member);
+        $run_query->execute(['', $member_name, $member_title, $member_img]);
 
         if ($run_query){
             echo '<script>swal("Compelete", "Member Uploaded Successfully", "success");</script>';

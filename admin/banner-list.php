@@ -1,7 +1,10 @@
 <?php
 include'config.php';
-$view_banners = "select * from banner_slider";
-$run_query = mysqli_query($conn, $view_banners);
+
+$view_banners = "SELECT * FROM banner_slider";
+$run_query = $conn->prepare($view_banners);
+$run_query->execute();
+$results = $run_query->fetchAll();
 ?>
 <!doctype html>
 <html lang="en">
@@ -66,14 +69,14 @@ $run_query = mysqli_query($conn, $view_banners);
                                                 </thead>
                                                 <tbody>
                                                     <?php
-                                            if($run_query-> num_rows > 0){
+                                            foreach($results as $row){
+                                                //assigning the variables to human readable names
+                                                $banner_id = $row->id;
+                                                $banner_title = $row->banner_title;
+                                                $banner_content = $row->banner_content;
+                                                $banner_img = $row->banner_img;
 
-                                             while($row = mysqli_fetch_assoc($run_query)) {
-                                                $banner_id = $row['id'];
-                                                $banner_title = $row['banner_title'];
-                                                $banner_content = $row['banner_content'];
-                                                $banner_img = $row['banner_img'];
-
+                                                // displaying the info in the proper html code
 
                                                     echo "<tr data-id='1'>
                                                         <td data-field='banner_id' style='width: 80px'> ".$banner_id.".</td>
@@ -93,10 +96,6 @@ $run_query = mysqli_query($conn, $view_banners);
                                                             </a>
                                                         </td>
                                                     </tr>";
-                                            }
-                                            }
-                                            else{
-                                                echo "<span style='color:#fe0002;font-size:15px;'>Banner list is Empty.</span>";
                                             }
 
                                              ?>

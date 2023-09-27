@@ -1,8 +1,10 @@
 <?php
 include'config.php';
 
-$view_gallery = "select * from image_gallery";
-$run_query = mysqli_query($conn, $view_gallery);
+$view_gallery = "SELECT * FROM image_gallery";
+$run_query = $conn->prepare($view_gallery);
+$run_query->execute();
+$rows = $run_query->fetchAll();
 
 ?>
 <!doctype html>
@@ -53,10 +55,11 @@ $run_query = mysqli_query($conn, $view_gallery);
                                     <div class="card-body editable_banner p-4">
                                         <div class="row">
                                             <div class="col-lg-6">
-                                                <?php while($row = mysqli_fetch_array($run_query)) {
-                                                $gallery_id = $row['gallery_id'];
-                                                $gallery_title = $row['gallery_title'];
-                                                $gallery_img = $row['gallery_img'];
+                                                <?php
+                                                foreach($rows as $row){
+                                                $gallery_id = $row->gallery_id;
+                                                $gallery_title = $row->gallery_title;
+                                                $gallery_img = $row->gallery_img;
                                             }
                                                 ?>
 
@@ -111,8 +114,9 @@ $uploaddir = 'images-gallery';
 
     if(move_uploaded_file($tmp_gallery, $gallery_path)){
 
-        $update_gallery = "UPDATE `image_gallery` SET `gallery_title`='$gallery_title',`gallery_img`='$gallery_img' WHERE `gallery_id` = '$gallery_id'";
-        $run_query = mysqli_query($conn, $update_gallery);
+        $update_gallery = "UPDATE `image_gallery` SET `gallery_title`=?,`gallery_img`=? WHERE `gallery_id` = ?";
+        $run_query = $conn->prepare($update_gallery);
+        $run_query->execute([$gallery_title,$gallery_img,$gallery_id]);
 
         if ($run_query){
             echo '<script>swal("Compelete", "Gallery Image Updated Successfully", "success");</script>';

@@ -53,21 +53,22 @@ session_start();
                                             <div class="col-12">
                                                 <span class="text-muted mb-3 lh-1 d-block text-truncate">Total Inquiries</span>
                                                 <?php
+
                                                 $query = "SELECT * FROM contact_inquiry";
 
                                                 // Execute the query and store the result set
-                                                $result = mysqli_query($conn, $query);
+                                                $result = $conn->prepare($query);
+                                                $result->execute();
 
                                                 if ($result)
                                                 {
-                                                $row = mysqli_num_rows($result);
-                                                if ($row)
-                                                    {
+                                                    // get the number of items or rows in the table
+                                                $rowCount = $result->rowCount()
                                                 ?>
-                                                <h4 class="mb-3"><span class="counter-value" data-target="<?php echo $row; ?>">0</span></h4>
+                                                <h4 class="mb-3"><span class="counter-value" data-target="<?php echo $rowCount; ?>">0</span></h4>
                                                 <?php
                                                 }
-                                                }
+
                                                 ?>
                                             </div>
 
@@ -92,19 +93,17 @@ session_start();
                                                 $query = "SELECT * FROM news";
 
                                                 // Execute the query and store the result set
-                                                $result = mysqli_query($conn, $query);
+                                                $result = $conn->prepare($query);
+                                                $result->execute();
 
                                                 if ($result)
                                                 {
-                                                $row = mysqli_num_rows($result);
-                                                if ($row)
-                                                    {
+                                                $rowCount = $result->rowCount();
                                                 ?>
                                                 <h4 class="mb-3">
-                                                    <span class="counter-value" data-target="<?php echo $row; ?>">0</span>
+                                                    <span class="counter-value" data-target="<?php echo $rowCount; ?>">0</span>
                                                 </h4>
                                                 <?php
-                                                }
                                                 }
                                                 ?>
                                             </div>
@@ -129,19 +128,19 @@ session_start();
                                                 $query = "SELECT * FROM event_list";
 
                                                 // Execute the query and store the result set
-                                                $result = mysqli_query($conn, $query);
+                                                $result = $conn->prepare($query);
+                                                $result->execute();
+
 
                                                 if ($result)
                                                 {
-                                                $row = mysqli_num_rows($result);
-                                                if ($row)
-                                                    {
+                                                $rowCount = $result->rowCount();
+
                                                 ?>
                                                 <h4 class="mb-3">
-                                                    <span class="counter-value" data-target="<?php echo $row; ?>">0</span>
+                                                    <span class="counter-value" data-target="<?php echo $rowCount; ?>">0</span>
                                                 </h4>
                                                 <?php
-                                                }
                                                 }
                                                 ?>
                                             </div>
@@ -161,24 +160,22 @@ session_start();
                                     <div class="card-body">
                                         <div class="row align-items-center">
                                             <div class="col-6">
-                                                <span class="text-muted mb-3 lh-1 d-block text-truncate">Total Volunteers</span>
+                                                <span class="text-muted mb-3 lh-1 d-block text-truncate">Total Members</span>
                                                 <?php
                                                 $query = "SELECT * FROM member_list";
 
                                                 // Execute the query and store the result set
-                                                $result = mysqli_query($conn, $query);
+                                                $result = $conn->prepare($query);
+                                                $result->execute();
 
                                                 if ($result)
                                                 {
-                                                $row = mysqli_num_rows($result);
-                                                if ($row)
-                                                    {
+                                                $rowCount = $result->rowCount();
                                                 ?>
                                                 <h4 class="mb-3">
-                                                    <span class="counter-value" data-target="<?php echo $row; ?>">0</span>
+                                                    <span class="counter-value" data-target="<?php echo $rowCount; ?>">0</span>
                                                 </h4>
                                                 <?php
-                                                }
                                                 }
                                                 ?>
                                             </div>
@@ -232,18 +229,20 @@ session_start();
                                             <tbody>
 
                                         <?php
+
                                         include'config.php';
                                         $view_inquiry = "SELECT * FROM contact_inquiry";
-                                        $run_query = mysqli_query($conn, $view_inquiry);
-                                        if($run_query-> num_rows > 0){
+                                        $run_query = $conn->prepare($view_inquiry);
+                                        $run_query->execute();
+                                        $rows = $run_query->fetchAll();
 
-                                            while($row = mysqli_fetch_assoc($run_query)) {
-                                                $c_id = $row['c_id'];
-                                                $c_name = $row['c_name'];
-                                                $c_email = $row['c_email'];
-                                                $c_phone = $row['c_phone'];
-                                                $c_subject = $row['c_subject'];
-                                                $c_massage = $row['c_massage'];
+                                        foreach($rows as $row){
+                                                $c_id = $row->c_id;
+                                                $c_name = $row->c_name;
+                                                $c_email = $row->c_email;
+                                                $c_phone = $row->c_phone;
+                                                $c_subject = $row->c_subject;
+                                                $c_massage = $row->c_massage;
 
 
                                                     echo "<tr data-id='1'>
@@ -272,10 +271,6 @@ session_start();
                                                             </a>
                                                         </td>
                                                     </tr>";
-                                            }
-                                            }
-                                            else{
-                                                echo "<span style='color:#fe0002;font-size:15px;'>Banner list is Empty.</span>";
                                             }
 
                                              ?>

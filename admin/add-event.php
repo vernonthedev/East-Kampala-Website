@@ -122,8 +122,9 @@ $uploaddir = 'events';
 
     if(move_uploaded_file($e_tmp, $e_path)){
 
-        $insert_event = "insert into event_list(event_id, event_title, event_date, event_place, event_content, event_img) values('', '$e_title', '$e_date', '$e_place', '$e_content', '$e_img')";
-        $run_query = mysqli_query($conn, $insert_event);
+        $insert_event = "INSERT INTO event_list(event_id, event_title, event_date, event_place, event_content, event_img) VALUES(?, ?, ?, ?, ?, ?)";
+        $run_query = $conn->prepare($insert_event);
+        $run_query->execute(["",$e_title,$e_date,$e_place,$e_content,$e_img]);
 
         if ($run_query){
             echo '<script>swal("Compelete", "Program Uploaded Successfully", "success");</script>';

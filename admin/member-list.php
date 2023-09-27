@@ -1,8 +1,10 @@
 <?php
 include'config.php';
 
-$view_team = "select * from member_list";
-$run_query = mysqli_query($conn, $view_team);
+$view_team = "SELECT * FROM member_list";
+$run_query = $conn->prepare($view_team);
+$run_query->execute();
+$rows = $run_query->fetchAll();
 
 
 ?>
@@ -62,13 +64,11 @@ $run_query = mysqli_query($conn, $view_team);
                                                 </thead>
                                                 <tbody>
                                                     <?php
-                                            if($run_query-> num_rows > 0){
-
-                                             while($row = mysqli_fetch_assoc($run_query)) {
-                                                $member_id = $row['member_id'];
-                                                $member_name = $row['member_name'];
-                                                $member_title = $row['member_title'];
-                                                $member_img = $row['member_img'];
+                                           foreach($rows as $row){
+                                                $member_id = $row->member_id;
+                                                $member_name = $row->member_name;
+                                                $member_title = $row->member_title;
+                                                $member_img = $row->member_img;
 
                                                     echo "<tr data-id='1'>
                                                         <td data-field='member_id' style='width: 80px'> ".$member_id.".</td>
@@ -89,10 +89,7 @@ $run_query = mysqli_query($conn, $view_team);
                                                         </td>
                                                     </tr>";
                                             }
-                                            }
-                                            else{
-                                                echo "<span style='color:#fe0002;font-size:15px;'>Member list is Empty.</span>";
-                                            }
+
 
                                              ?>
                                                 </tbody>

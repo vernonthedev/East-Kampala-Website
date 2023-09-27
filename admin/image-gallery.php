@@ -1,8 +1,10 @@
 <?php
 include'config.php';
 
-$view_gallery = "select * from image_gallery";
-$run_query = mysqli_query($conn, $view_gallery);
+$view_gallery = "SELECT * FROM image_gallery";
+$run_query = $conn->prepare($view_gallery);
+$run_query->execute();
+$rows = $run_query->fetchAll();
 
 
 ?>
@@ -64,12 +66,10 @@ $run_query = mysqli_query($conn, $view_gallery);
                                                 </thead>
                                                 <tbody>
                                                     <?php
-                                            if($run_query-> num_rows > 0){
-
-                                             while($row = mysqli_fetch_assoc($run_query)) {
-                                                $g_id = $row['gallery_id'];
-                                                $g_title = $row['gallery_title'];
-                                                $g_img = $row['gallery_img'];
+                                            foreach($rows as $row){
+                                                $g_id = $row->gallery_id;
+                                                $g_title = $row->gallery_title;
+                                                $g_img = $row->gallery_img;
 
 
                                                     echo "<tr data-id='1'>
@@ -87,10 +87,6 @@ $run_query = mysqli_query($conn, $view_gallery);
                                                             </a>
                                                         </td>
                                                     </tr>";
-                                            }
-                                            }
-                                            else{
-                                                echo "<span style='color:#fe0002;font-size:15px;'>Gallery is Empty.</span>";
                                             }
 
                                              ?>

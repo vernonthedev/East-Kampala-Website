@@ -98,12 +98,14 @@ session_start();
 <?php
 if(isset($_POST['admin_login'])){
 
-    $username = mysqli_real_escape_string($conn, $_POST['user_name']);
+    $username = $_POST['user_name'];
     $userpassword = $_POST['user_password'];
 
-    $view_data = "SELECT * FROM admin WHERE admin_name = '$username' AND admin_password = '$userpassword'";
-        $result = mysqli_query($conn, $view_data) or die("Query Failed.");
-        $data = mysqli_num_rows($result);
+    $view_data = "SELECT * FROM admin WHERE admin_name = ? AND admin_password = ?";
+        $result = $conn->prepare($view_data);
+        $result->execute([$username, $userpassword]);
+
+        $data = $result->fetchAll();
         if ($data == 1){
             $_SESSION['admin_name'] = $_POST['user_name'];
             echo '<script> window.location.href = "./";</script>';

@@ -1,8 +1,12 @@
 <?php
 include'config.php';
 
-$view_banners = "SELECT * FROM banner_slider WHERE id='" . $_GET["id"] . "'";
-$run_query = mysqli_query($conn, $view_banners);
+$my_banner_id = $_GET["id"];
+$view_banners = "SELECT * FROM banner_slider WHERE id=?";
+$results = $conn->prepare($view_banners);
+$results->execute([$my_banner_id]);
+$rows = $results->fetchAll();
+
 
 ?>
 <!doctype html>
@@ -53,11 +57,13 @@ $run_query = mysqli_query($conn, $view_banners);
                                     <div class="card-body editable_banner p-4">
                                         <div class="row">
                                             <div class="col-lg-6">
-                                                <?php while($row = mysqli_fetch_array($run_query)) {
-                                                $banner_id = $row['id'];
-                                                $banner_title = $row['banner_title'];
-                                                $banner_content = $row['banner_content'];
-                                                $banner_img = $row['banner_img'];
+                                                <?php
+
+                                                foreach($rows as $row){
+                                                $banner_id = $row->id;
+                                                $banner_title = $row->banner_title;
+                                                $banner_content = $row->banner_content;
+                                                $banner_img = $row->banner_img;
                                             }
                                                 ?>
 
@@ -118,8 +124,10 @@ $uploaddir = 'banner';
 
     if(move_uploaded_file($tmp_banner, $banner_path)){
 
-        $update_banner = "UPDATE `banner_slider` SET `banner_title`='$banner_title',`banner_content`='$banner_msg',`banner_img`='$banner_img' WHERE `id` = '$banner_id'";
-        $run_query = mysqli_query($conn, $update_banner);
+        $update_banner = "UPDATE `banner_slider` SET `banner_title`= ? ,`banner_content`=?,`banner_img`=? WHERE `id` = ?";
+        $run_query = $conn->prepare($update_banner);
+        $run_query->execute([$banner_title,$banner_msg,$banner_img,$banner_id]);
+
 
         if ($run_query){
             echo '<script>swal("Compelete", "Banner Edited Successfully", "success");</script>';

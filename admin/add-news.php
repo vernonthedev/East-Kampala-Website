@@ -128,8 +128,9 @@ $uploaddir = 'news-images';
 
     if(move_uploaded_file($n_tmp, $n_path)){
 
-        $insert_news = "insert into news(news_id, news_title, news_date, news_place, news_type, news_content, news_img) values('', '$n_title', '$n_date', '$n_place', '$n_type', '$n_content', '$n_img')";
-        $run_query = mysqli_query($conn, $insert_news);
+        $insert_news = "INSERT INTO news(news_id, news_title, news_date, news_place, news_type, news_content, news_img) VALUES(?, ?, ?, ?, ?, ?, ?)";
+        $run_query = $conn->prepare($insert_news);
+        $run_query->execute(['',$n_title, $n_date, $n_place, $n_type, $n_content, $n_img]);
 
         if ($run_query){
             echo '<script>swal("Compelete", "Devotion Uploaded Successfully", "success");</script>';

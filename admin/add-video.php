@@ -103,8 +103,9 @@ $gallerydir = 'videos-gallery';
 
     if(move_uploaded_file($tmp_video, $video_path)){
 
-        $insert_gallery = "insert into video_gallery(video_id, video_title, video_location) values('', '$video_title', '$video_location')";
-        $run_query = mysqli_query($conn, $insert_gallery);
+        $insert_gallery = "INSERT INTO video_gallery(video_id, video_title, video_location) VALUES(?, ?, ?)";
+        $run_query = $conn->prepare($insert_gallery);
+        $run_query->execute(['', $video_title, $video_location]);
 
         if ($run_query){
             echo '<script>swal("Compelete", "Video Sermon Uploaded Successfully", "success");</script>';

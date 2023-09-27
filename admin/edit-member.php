@@ -1,8 +1,11 @@
 <?php
 include'config.php';
 
-$view_member = "SELECT * FROM member_list WHERE member_id ='" . $_GET["id"] . "'";
-$run_query = mysqli_query($conn, $view_member);
+$mem = $_GET["id"];
+$view_member = "SELECT * FROM member_list WHERE member_id =?";
+$run_query = $conn->prepare($view_member);
+$run_query->execute([$mem]);
+$rows = $run_query->fetchAll();
 
 ?>
 <!doctype html>
@@ -53,11 +56,12 @@ $run_query = mysqli_query($conn, $view_member);
                                     <div class="card-body editable_banner p-4">
                                         <div class="row">
                                             <div class="col-lg-6">
-                                                <?php while($row = mysqli_fetch_array($run_query)) {
-                                                $member_id = $row['member_id'];
-                                                $member_name = $row['member_name'];
-                                                $member_title = $row['member_title'];
-                                                $member_img = $row['member_img'];
+                                                <?php
+                                                foreach($rows as $row){
+                                                $member_id = $row->member_id;
+                                                $member_name = $row->member_name;
+                                                $member_title = $row->member_title;
+                                                $member_img = $row->member_img;
                                             }
                                                 ?>
 
@@ -118,8 +122,9 @@ $uploaddir = 'team-images';
 
     if(move_uploaded_file($tmp_member, $member_path)){
 
-        $update_member = "UPDATE `member_list` SET`member_name`='$member_name', `member_title`='$member_title',`member_img`='$member_img' WHERE `member_id` = '$member_id'";
-        $run_query = mysqli_query($conn, $update_member);
+        $update_member = "UPDATE `member_list` SET`member_name`=?, `member_title`=?,`member_img`=? WHERE `member_id` = ?";
+        $run_query = $conn->prepare($update_member);
+        $run_query->execute([$member_name,$member_title,$member_img,$member_id]);
 
         if ($run_query){
             echo '<script>swal("Compelete", "Member Updated Successfully", "success");</script>';

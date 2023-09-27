@@ -1,7 +1,10 @@
 <?php
 include'config.php';
-$view_inquiry = "select * from contact_inquiry";
-$run_query = mysqli_query($conn, $view_inquiry);
+$view_inquiry = "SELECT * FROM contact_inquiry";
+$run_query = $conn->prepare($view_inquiry);
+$run_query->execute();
+$rows = $run_query->fetchAll();
+
 ?>
 <!doctype html>
 <html lang="en">
@@ -61,15 +64,13 @@ $run_query = mysqli_query($conn, $view_inquiry);
                                                 </thead>
                                                 <tbody>
                                                     <?php
-                                            if($run_query-> num_rows > 0){
-
-                                            while($row = mysqli_fetch_assoc($run_query)) {
-                                                $c_id = $row['c_id'];
-                                                $c_name = $row['c_name'];
-                                                $c_email = $row['c_email'];
-                                                $c_phone = $row['c_phone'];
-                                                $c_subject = $row['c_subject'];
-                                                $c_massage = $row['c_massage'];
+                                                foreach($rows as $row){
+                                                $c_id = $row->c_id;
+                                                $c_name = $row->c_name;
+                                                $c_email = $row->c_email;
+                                                $c_phone = $row->c_phone;
+                                                $c_subject = $row->c_subject;
+                                                $c_massage = $row->c_massage;
 
 
                                                     echo "<tr data-id='1'>
@@ -99,11 +100,6 @@ $run_query = mysqli_query($conn, $view_inquiry);
                                                         </td>
                                                     </tr>";
                                             }
-                                            }
-                                            else{
-                                                echo "<span style='color:#fe0002;font-size:15px;'>Banner list is Empty.</span>";
-                                            }
-
                                              ?>
                                                 </tbody>
                                             </table>

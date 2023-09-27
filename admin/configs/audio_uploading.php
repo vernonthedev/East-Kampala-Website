@@ -1,14 +1,5 @@
 <?php
-//Setting the database credentials
-$server_name = "localhost";
-$username = 'root';
-$password= "";
-$dbname = "inventweb_ngo";
-
-$conn = new mysqli($server_name, $username, $password, $dbname);
-if($conn->connect_error) {
-    die("Connection failed". $conn->connect_error);
-}
+include '../config.php';
 
 //CHECK IF FILE WAS UPLOADED
 if (isset($_POST['submit'])) {
@@ -27,9 +18,12 @@ if($fileType != "mp3" || $_FILES["audio_sermon"]["size"] > 20000000){
         $filename = $_FILES["audio_sermon"]["name"];
         $folder_path = $targetDir;
         $time_stamp = date('Y-m-d H:i:s');
-        $sql = "INSERT INTO audio_uploads(audio_name, file_path, time_stamp) VALUES ('$filename', '$folder_path', '$time_stamp')";
 
-        if($conn->query($sql)===TRUE){
+        $sql = "INSERT INTO audio_uploads(audio_name, file_path, time_stamp) VALUES (?, ?, ?)";
+        $request = $conn->prepare($sql);
+        $request->execute([$filename, $folder_path, $time_stamp]);
+
+        if($request == TRUE){
             echo '<script>alert("File Uploaded Successfully")</script>';
         }else{
             echo '<script>alert("Error occurred.. ")</script>';
@@ -41,7 +35,5 @@ if($fileType != "mp3" || $_FILES["audio_sermon"]["size"] > 20000000){
 
 }
 
-//closing the db connection
-$conn->close();
 
 ?>

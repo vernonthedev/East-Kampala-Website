@@ -1,8 +1,11 @@
 <?php
 include'config.php';
 
-$view_news = "SELECT * FROM news WHERE news_id='" . $_GET["id"] . "'";
-$run_query = mysqli_query($conn, $view_news);
+$new = $_GET["id"];
+$view_news = "SELECT * FROM news WHERE news_id=?";
+$run_query = $conn->prepare($view_news);
+$run_query->execute([$new]);
+$rows = $run_query->fetchAll();
 
 ?>
 <!doctype html>
@@ -53,13 +56,14 @@ $run_query = mysqli_query($conn, $view_news);
                                     <div class="card-body editable_banner p-4">
                                         <div class="row">
                                             <div class="col-lg-6">
-                                                <?php while($row = mysqli_fetch_array($run_query)) {
-                                                $n_id = $row['news_id'];
-                                                $n_title = $row['news_title'];
-                                                $n_date = $row['news_date'];
-                                                $n_place = $row['news_place'];
-                                                $n_content = $row['news_content'];
-                                                $n_img = $row['news_img'];
+                                                <?php
+                                                foreach($rows as $row){
+                                                $n_id = $row->news_id;
+                                                $n_title = $row->news_title;
+                                                $n_date = $row->news_date;
+                                                $n_place = $row->news_place;
+                                                $n_content = $row->news_content;
+                                                $n_img = $row->news_img;
                                             }
                                                 ?>
 
@@ -131,8 +135,9 @@ $uploaddir = 'news-images';
 
     if(move_uploaded_file($n_tmp, $n_path)){
 
-        $update_event = "UPDATE `news` SET `news_title`='$n_title',`news_date`='$n_date',`news_place`='$n_place',`news_content`='$n_content',`news_img`='$n_img' WHERE `news_id` = '$n_id'";
-        $run_query = mysqli_query($conn, $update_event);
+        $update_event = "UPDATE `news` SET `news_title`=?,`news_date`=?,`news_place`=?,`news_content`=?,`news_img`=? WHERE `news_id` = ?";
+        $run_query = $conn->prepare($update_event);
+        $run_query->execute([$n_title, $n_date, $n_place, $n_content, $n_img, $n_id]);
 
         if ($run_query){
             echo '<script>swal("Compelete", "Devotion Updated Successfully", "success");</script>';

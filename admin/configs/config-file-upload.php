@@ -1,14 +1,5 @@
 <?php
-//Setting the database credentials
-$server_name = "localhost";
-$username = 'root';
-$password= "";
-$dbname = "inventweb_ngo";
-
-$conn = new mysqli($server_name, $username, $password, $dbname);
-if($conn->connect_error) {
-    die("Connection failed". $conn->connect_error);
-}
+include '../config.php';
 
 //CHECK IF FILE WAS UPLOADED
 if (isset($_POST['submit'])) {
@@ -27,9 +18,11 @@ if($fileType != "pdf" || $_FILES["pdfFile"]["size"] > 2000000){
         $filename = $_FILES["pdfFile"]["name"];
         $folder_path = $targetDir;
         $time_stamp = date('Y-m-d H:i:s');
-        $sql = "INSERT INTO uploaded_files(filename, folder_path, time_stamp) VALUES ('$filename', '$folder_path', '$time_stamp')";
+        $sql = "INSERT INTO uploaded_files(filename, folder_path, time_stamp) VALUES (?, ?, ?)";
+        $results = $conn->prepare($sql);
+        $results->execute([$filename,$folder_path,$time_stamp]);
 
-        if($conn->query($sql)===TRUE){
+        if($results===TRUE){
             echo '<script>alert("File Uploaded Successfully")</script>';
         }else{
             echo '<script>alert("Error occurred.. ")</script>';
@@ -40,8 +33,5 @@ if($fileType != "pdf" || $_FILES["pdfFile"]["size"] > 2000000){
 }
 
 }
-
-//closing the db connection
-$conn->close();
 
 ?>

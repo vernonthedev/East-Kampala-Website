@@ -99,8 +99,9 @@ $bulletin_qr_dir = 'bulletin-qrcode-gallery';
 
     if(move_uploaded_file($tmp_gallery, $gallery_path)){
 
-        $insert_gallery = "INSERT INTO bulletin_qrcodes(bq_id, bq_image) values('', '$gallery_img')";
-        $run_query = mysqli_query($conn, $insert_gallery);
+        $insert_gallery = "INSERT INTO bulletin_qrcodes(bq_id, bq_image) values(?, ?)";
+        $run_query = $conn->prepare($insert_gallery);
+        $run_query->execute(["", $gallery_img]);
 
         if ($run_query){
             echo '<script>swal("Compelete", "Qcode Uploaded Successfully", "success");</script>';

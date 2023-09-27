@@ -1,11 +1,16 @@
 <?php
 include'config.php';
 
-$detele_gallery = "DELETE FROM image_gallery WHERE gallery_id='" . $_GET["id"] . "'";
-if (mysqli_query($conn, $detele_gallery)) {
+$recieved = $_GET["id"];
+
+$delete_gallery = "DELETE FROM image_gallery WHERE gallery_id= ? ";
+$results = $conn->prepare($delete_gallery);
+$results->execute([$recieved]);
+
+if($results){
     echo '<script>alert("Gallery Image Deleted Successfully");</script>';
     echo '<script> window.location.href = "image-gallery.php";</script>';
 } else {
-    echo "Error deleting record: " . mysqli_error($conn);
+    echo "Error deleting record: ";
 }
 ?>

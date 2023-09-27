@@ -1,8 +1,10 @@
 <?php
 include'config.php';
 
-$view_events = "select * from event_list";
-$run_query = mysqli_query($conn, $view_events);
+$view_events = "SELECT * FROM event_list";
+$run_query = $conn->prepare($view_events);
+$run_query->execute();
+$results = $run_query->fetchAll();
 
 ?>
 <!doctype html>
@@ -50,13 +52,14 @@ $run_query = mysqli_query($conn, $view_events);
                                     <div class="card-body editable_banner p-4">
                                         <div class="row">
                                             <div class="col-lg-6">
-                                                <?php while($row = mysqli_fetch_array($run_query)) {
-                                                $e_id = $row['event_id'];
-                                                $e_title = $row['event_title'];
-                                                $e_date = $row['event_date'];
-                                                $e_place = $row['event_place'];
-                                                $e_content = $row['event_content'];
-                                                $e_img = $row['event_img'];
+                                                <?php
+                                                foreach($results as $row){
+                                                $e_id = $row->event_id;
+                                                $e_title = $row->event_title;
+                                                $e_date = $row->event_date;
+                                                $e_place = $row->event_place;
+                                                $e_content = $row->event_content;
+                                                $e_img = $row->event_img;
                                             }
                                                 ?>
 
@@ -128,8 +131,9 @@ $uploaddir = 'events';
 
     if(move_uploaded_file($e_tmp, $e_path)){
 
-        $update_event = "UPDATE `event_list` SET `event_title`='$e_title',`event_date`='$e_date',`event_place`='$e_place',`event_content`='$e_content',`event_img`='$e_img' WHERE `event_id` = '$e_id'";
-        $run_query = mysqli_query($conn, $update_event);
+        $update_event = "UPDATE `event_list` SET `event_title`=?,`event_date`=?,`event_place`=?,`event_content`=?,`event_img`=? WHERE `event_id` = ?";
+        $run_query = $conn->prepare($update_event);
+        $run_query->execute([$e_title, $e_date, $e_place, $e_content, $e_img, $e_id]);
 
         if ($run_query){
             echo '<script>swal("Compelete", "Event Updated Successfully", "success");</script>';

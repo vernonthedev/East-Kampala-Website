@@ -1,8 +1,11 @@
 <?php
 include'config.php';
 
-$view_inquiry = "select * from contact_inquiry where c_id ='" . $_GET["id"] . "'";
-$run_query = mysqli_query($conn, $view_inquiry);
+$my_inqs = $_GET["id"] ;
+$view_inquiry = "SELECT * FROM contact_inquiry WHERE c_id =?";
+$run_query = $conn->prepare($view_inquiry);
+$run_query->execute([$my_inqs]);
+$rows = $run_query->fetchAll();
 
 ?>
 <!doctype html>
@@ -53,13 +56,14 @@ $run_query = mysqli_query($conn, $view_inquiry);
                                     <div class="card-body editable_banner p-4">
                                         <div class="row">
                                             <div class="col-lg-6">
-                                                <?php while($row = mysqli_fetch_array($run_query)) {
-                                                    $c_id = $row['c_id'];
-                                                    $c_name = $row['c_name'];
-                                                    $c_email = $row['c_email'];
-                                                    $c_phone = $row['c_phone'];
-                                                    $c_subject = $row['c_subject'];
-                                                    $c_massage = $row['c_massage'];
+                                                <?php
+                                                foreach($rows as $row){
+                                                    $c_id = $row->c_id;
+                                                    $c_name = $row->c_name;
+                                                    $c_email = $row->c_email;
+                                                    $c_phone = $row->c_phone;
+                                                    $c_subject = $row->c_subject;
+                                                    $c_massage = $row->c_massage;
                                                 }
                                                 ?>
 
@@ -124,8 +128,9 @@ $c_massage = $_POST['c_massage'];
 
 echo $c_id;
 
-    $update_inquiry = "UPDATE contact_inquiry SET `c_name`='$c_name',`c_email`='$c_email',`c_phone`='$c_phone',`c_subject`='$c_subject',`c_massage`='$c_massage' WHERE `c_id` = '$c_id'";
-    $run_query = mysqli_query($conn, $update_inquiry);
+    $update_inquiry = "UPDATE contact_inquiry SET `c_name`=?,`c_email`=?,`c_phone`=?,`c_subject`=?,`c_massage`=? WHERE `c_id` = ?";
+    $run_query = $conn->prepare($update_inquiry);
+    $run_query->execute([$c_name,$c_email,$c_phone,$c_subject,$c_massage,$c_id]);
 
     if ($run_query){
         echo '<script>swal("Compelete", "Inquiry Updated Successfully", "success");</script>';

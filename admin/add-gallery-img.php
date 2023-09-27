@@ -103,8 +103,9 @@ $gallerydir = 'images-gallery';
 
     if(move_uploaded_file($tmp_gallery, $gallery_path)){
 
-        $insert_gallery = "insert into image_gallery(gallery_id, gallery_title, gallery_img) values('', '$gallery_title', '$gallery_img')";
-        $run_query = mysqli_query($conn, $insert_gallery);
+        $insert_gallery = "INSERT INTO image_gallery(gallery_id, gallery_title, gallery_img) VALUES(?, ?, ?)";
+        $run_query = $conn->prepare($insert_gallery);
+        $run_query->execute(['', $gallery_title, $gallery_img]);
 
         if ($run_query){
             echo '<script>swal("Compelete", "Image Uploaded Successfully", "success");</script>';
