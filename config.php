@@ -3,11 +3,14 @@ $server = 'localhost';
 $user = 'root';
 $database = 'inventweb_ngo';
 $password = '';
-$conn = mysqli_connect($server, $user, $password, $database);
-if($conn) {
-}
-else{
-	die('Could not connect:');
-}
+
+// SETTING PDO DSN
+$dsn = 'mysql:host='.$server.';dbname='.$database;
+
+//CREATION OF PDO INSTANCE
+$conn = new PDO($dsn, $user, $password);
+//SET THE DEFAULT OBJECT RETRIEVAL METHOD
+$conn->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ);
+
 
 ?>

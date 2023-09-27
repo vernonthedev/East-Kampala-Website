@@ -1,7 +1,11 @@
 <?php
 include'config.php';
-$view_gallery = "select * from image_gallery";
-$run_query = mysqli_query($conn, $view_gallery);
+$sql = "SELECT * FROM image_gallery";
+$viewing_img = $conn->prepare($sql);
+$viewing_img->execute();
+$rows = $viewing_img->fetchAll();
+
+
 ?>
 
 <!doctype html>
@@ -37,20 +41,18 @@ $run_query = mysqli_query($conn, $view_gallery);
         <div class="container">
             <div class="row">
 <?php
-if($run_query-> num_rows > 0){
-while($row = mysqli_fetch_assoc($run_query)) {
+    foreach($rows as $row){
 ?>
                 <div class="col-lg-3 col-md-6 col-sm-6">
                     <div class="single-gallery-box">
-                        <img src="admin/images-gallery/<?php echo $row['gallery_img']; ?>" alt="<?php echo $row['gallery_title']; ?>">
-                        <a href="admin/images-gallery/<?php echo $row['gallery_img']; ?>" class="gallery-btn" data-imagelightbox="popup-btn"> <i class="flaticon-search"></i></a>
+                        <img src="admin/images-gallery/<?php echo $row->gallery_img; ?>" alt="<?php echo $row->gallery_title; ?>">
+                        <a href="admin/images-gallery/<?php echo $row->gallery_img; ?>" class="gallery-btn" data-imagelightbox="popup-btn"> <i class="flaticon-search"></i></a>
                         <div class="gallery_imgTitle">
-                            <h4><?php echo $row['gallery_title']; ?></h4>
+                            <h4><?php echo $row->gallery_title; ?></h4>
                         </div>
                     </div>
                 </div>
 <?php
-}
 }
 ?>
             </div>

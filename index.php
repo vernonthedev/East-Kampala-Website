@@ -17,23 +17,26 @@ include'config.php';
     <div class="slider_area">
 
         <div class="banner_slider owl-carousel owl-theme" data-indicators="true">
-<?php
-$view_banners = "select * from banner_slider";
-$run_query = mysqli_query($conn, $view_banners);
-if($run_query-> num_rows > 0){
 
-while($row = mysqli_fetch_assoc($run_query)) {
+        <!-- GET THE BANNER IMAGES -->
+<?php
+$view_banners = "SELECT * FROM banner_slider";
+$stmt = $conn->prepare($view_banners);
+$stmt->execute();
+$rows = $stmt->fetchAll();
+
+
+foreach($rows as $row){
 ?>
             <div class="item">
-                <img src="admin/banner/<?php echo $row['banner_img'];?>" alt="main_banner1" class="img img-fluid" >
+                <img src="admin/banner/<?php echo $row->banner_img;?>" alt="main_banner1" class="img img-fluid" >
                 <div class="index_bannerContent" style="border-radius: 10px;">
-                    <h3><?php echo $row['banner_title'];?></h3>
-                    <p><?php echo $row['banner_content'];?></p>
+                    <h3><?php echo $row->banner_title;?></h3>
+                    <p><?php echo $row->banner_content;?></p>
                 </div>
             </div>
 
 <?php
-}
 }
 ?>
 
@@ -100,11 +103,15 @@ while($row = mysqli_fetch_assoc($run_query)) {
     <div class="col-lg-12 col-md-12 col-sm-12">
       <div class="our_solution_category">
       <div class="solution_cards_box">
+
       <?php
-            $view_events = "select * from event_list order by event_id limit 2";
-            $run_query = mysqli_query($conn, $view_events);
-            if($run_query-> num_rows > 0){
-            while($row = mysqli_fetch_assoc($run_query)) {
+          // SELECT ALL THE TWO OF THE EVENTS
+            $view_events = "SELECT * FROM event_list ORDER BY ? LIMIT 2";
+            $viewing = $conn->prepare($view_events);
+            $viewing->execute(["event_id"]);
+            $viewed = $viewing->fetchAll();
+
+            foreach($viewed as $row){
             ?>
 
 
@@ -156,17 +163,16 @@ while($row = mysqli_fetch_assoc($run_query)) {
               </svg>
             </div>
             <div class="solu_title">
-              <h3><?php echo $row['event_title']; ?></h3>
+              <h3><?php echo $row->event_title; ?></h3>
             </div>
             <div class="solu_description">
               <p>
-              <?php echo $row['event_content']; ?>
+              <?php echo $row->event_content; ?>
               </p>
-              <button type="button" class="read_more_btn"><a href="events.php?id=<?php echo $row['event_id']; ?>" class="event-btn-one">View More..</a></button>
+              <button type="button" class="read_more_btn"><a href="events.php?id=<?php echo $row->event_id; ?>" class="event-btn-one">View More..</a></button>
             </div>
           </div>
 <?php
-}
 }
 ?>
 
@@ -178,11 +184,16 @@ while($row = mysqli_fetch_assoc($run_query)) {
         <div class="solution_cards_box sol_card_top_3">
 
         <?php
-            $view_events = "select * from event_list order by event_id limit 2, 3";
-            $run_query = mysqli_query($conn, $view_events);
-            if($run_query-> num_rows > 0){
-            while($row = mysqli_fetch_assoc($run_query)) {
-            ?>
+        //SELECT THE REMAINING TWO EVENTS TO BE SHOWN ON THE INDEX PAGE
+            $view_events = "SELECT * FROM event_list ORDER BY ? LIMIT 2, 3";
+            $viewing = $conn->prepare($view_events);
+            $viewing->execute(["event_id"]);
+            $viewed = $viewing->fetchAll();
+
+            foreach($viewed as $row){
+
+
+        ?>
 
           <div class="solution_card">
             <div class="hover_color_bubble"></div>
@@ -232,18 +243,17 @@ while($row = mysqli_fetch_assoc($run_query)) {
               </svg>
             </div>
             <div class="solu_title">
-              <h3><?php echo $row['event_title']; ?></h3>
+              <h3><?php echo $row->event_title; ?></h3>
             </div>
             <div class="solu_description">
               <p>
-              <?php echo $row['event_content']; ?>
+              <?php echo $row->event_content; ?>
               </p>
-              <button type="button" class="read_more_btn"><a href="events.php?id=<?php echo $row['event_id']; ?>" class="event-btn-one">View More..</a></button>
+              <button type="button" class="read_more_btn"><a href="events.php?id=<?php echo $row->event_id; ?>" class="event-btn-one">View More..</a></button>
             </div>
           </div>
 
           <?php
-}
 }
 ?>
         </div>
@@ -261,30 +271,36 @@ while($row = mysqli_fetch_assoc($run_query)) {
                 <h2><img src="assets/img/devotion.svg" width="70px" /> Our Latest Devotions</h2>
                 <p >Devotions makes suspendice adipiscing elit, sed do eiusmod tempor incididunt ut labore.</p>
             </div>
-<?php
-$view_news = "select * from news";
-$run_query = mysqli_query($conn, $view_news);
-?>
-            <div class="news_slider owl-carousel owl-theme">
-<?php
-if($run_query-> num_rows > 0){
-while($row = mysqli_fetch_assoc($run_query)) {
-?>
+
+
+              <?php
+              // SELECT ALL THE DEVOTIONS TO BE SHOWN IN THE CAROUSEL
+
+              $view_news = "SELECT * FROM news";
+              $run_query = $conn->prepare($view_news);
+              ?>
+                          <div class="news_slider owl-carousel owl-theme">
+              <?php
+              // the loop for each item
+              $run_query->execute();
+              $rows = $run_query->fetchAll();
+              foreach($rows as $row){
+              ?>
 
                 <div class="item">
                     <div class="single-blog">
                         <div class="row gx-0">
                             <div class="col-lg-5 col-sm-6 col-xs-12">
-                                <img src="admin/news-images/<?php echo $row['news_img']; ?>" alt="image">
+                                <img src="admin/news-images/<?php echo $row->news_img; ?>" alt="image">
                             </div>
                             <div class="col-lg-7 col-sm-6 col-xs-12">
                                 <div class="content">
                                     <a href=""><i class='bx bx-user'></i>
                                     </a>
-                                    <span><?php echo $row['news_place']; ?>, <?php echo $row['news_date']; ?></span>
-                                    <h3><a href=""><?php echo $row['news_title']; ?></a></h3>
-                                    <p><?php echo $row['news_content']; ?></p>
-                                    <a href="news-details.php?id=<?php echo $row['news_id']; ?>" class="blog-btn">Read more..</a>
+                                    <span><?php echo $row->news_place; ?>, <?php echo $row->news_date; ?></span>
+                                    <h3><a href=""><?php echo $row->news_title; ?></a></h3>
+                                    <p><?php echo $row->news_content; ?></p>
+                                    <a href="news-details.php?id=<?php echo $row->news_id; ?>" class="blog-btn">Read more..</a>
                                 </div>
                             </div>
                         </div>
@@ -293,7 +309,6 @@ while($row = mysqli_fetch_assoc($run_query)) {
                     </div>
                 </div>
 <?php
-}
 }
 ?>
             </div>
@@ -368,19 +383,22 @@ while($row = mysqli_fetch_assoc($run_query)) {
                 <h2>Church Board Members</h2>
                     <p>Quis ipsum suspendice consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendices gravida.</p>
             </div>
+
 <?php
-$view_data = "select * from member_list";
-$run_query = mysqli_query($conn, $view_data);
+//SELECTING ALL THE CHURCH MEMBER HEADS
+$view_data = "SELECT * FROM member_list";
+$run_query = $conn->prepare($view_data);
+$run_query->execute();
 ?>
             <div class="team_slider owl-carousel owl-theme">
 <?php
-if($run_query-> num_rows > 0){
-while($row = mysqli_fetch_assoc($run_query)) {
+$rows = $run_query->fetchAll();
+foreach($rows as $row){
 ?>
                 <div class="item">
                     <div class="team-item">
                         <div class="image">
-                            <img src="admin/team-images/<?php echo $row['member_img']; ?>" alt="image" class="img img-thumbnail">
+                            <img src="admin/team-images/<?php echo $row->member_img; ?>" alt="image" class="img img-thumbnail">
                             <ul class="social">
                                 <li><a href="#" target="_blank"><i class="bx bxl-facebook"></i></a>
                                 </li>
@@ -394,13 +412,12 @@ while($row = mysqli_fetch_assoc($run_query)) {
                         </div>
                         <div class="content">
 
-                            <h3><?php echo $row['member_name']; ?></h3>
-                            <span><?php echo $row['member_title']; ?></span>
+                            <h3><?php echo $row->member_name; ?></h3>
+                            <span><?php echo $row->member_title; ?></span>
                         </div>
                     </div>
                 </div>
 <?php
-}
 }
 ?>
             </div>

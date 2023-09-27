@@ -1,7 +1,11 @@
 <?php
 include'config.php';
-$view_events = "SELECT * FROM event_list ORDER BY event_id DESC";
-$run_query = mysqli_query($conn, $view_events);
+$sql = "SELECT * FROM event_list ORDER BY ? DESC";
+$run_query = $conn->prepare($sql);
+$run_query->execute(["event_id"]);
+$rows = $run_query->fetchAll();
+
+
 ?>
 <!doctype html>
 <html lang="en">
@@ -36,27 +40,25 @@ $run_query = mysqli_query($conn, $view_events);
 <section class="light ">
 	<div class="container py-2 mt-3 pt-3">
         <?php
-        if($run_query-> num_rows > 0){
-
-        while($row = mysqli_fetch_assoc($run_query)) {
-        $e_id = $row['event_id'];
+            //loop through the retrieved programs
+            foreach($rows as $row){
         ?>
 
 		<article class="postcard light green">
 			<a class="postcard__img_link" href="#">
-				<img class="postcard__img" src="admin/events/<?php echo $row['event_img']; ?>" alt="Image Title" />
+				<img class="postcard__img" src="admin/events/<?php echo $row->event_img; ?>" alt="Image Title" />
 			</a>
 			<div class="postcard__text t-dark">
-				<h1 class="postcard__title green"><a href="#"><?php echo $row['event_title']; ?></a></h1>
+				<h1 class="postcard__title green"><a href="#"><?php echo $row->event_title; ?></a></h1>
 				<div class="postcard__subtitle small">
 					<time datetime="2020-05-25 12:00:00">
-						<i class="fas fa-calendar-alt mr-2"></i><?php echo $row['event_date']?>
+						<i class="fas fa-calendar-alt mr-2"></i><?php echo $row->event_date?>
 					</time>
 				</div>
 				<div class="postcard__bar"></div>
-				<div class="postcard__preview-txt"><?php echo $row['event_content']; ?></div>
+				<div class="postcard__preview-txt"><?php echo $row->event_content; ?></div>
 				<ul class="postcard__tagbox">
-					<li class="tag__item"><i class="fas fa-tag mr-2"></i><?php echo $row['event_place']?></li>
+					<li class="tag__item"><i class="fas fa-tag mr-2"></i><?php echo $row->event_place?></li>
 					<li class="tag__item"><i class="fas fa-clock mr-2"></i>Whole Day.</li>
 					<li class="tag__item play green">
 						<a href="#"><i class="fas fa-play mr-2"></i>I Will Go</a>
@@ -65,9 +67,8 @@ $run_query = mysqli_query($conn, $view_events);
 			</div>
 		</article>
         <?php
-}
-}
-?>
+        }
+        ?>
 
 	</div>
 </section>

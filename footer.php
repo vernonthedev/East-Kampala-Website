@@ -44,19 +44,19 @@
                 <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
                     <?php
                     include'config.php';
-                    $view_data = "select * from bulletin_qrcodes";
-                    $run_query = mysqli_query($conn, $view_data);
+                    $view_data = "SELECT * FROM bulletin_qrcodes";
+                    $viewing_data = $conn->prepare($view_data);
+                    $viewing_data->execute();
 
-                    if($run_query-> num_rows > 0){
-                        while($row = mysqli_fetch_assoc($run_query)) {
+                    //loop through the qrcode images and display just one
+                    foreach($viewing_data as $row){
                     ?>
                     <div class="single-footer-widget">
-                        <blockquote><img class="img img-fluid pr-3 mr-3" src="admin/bulletin-qrcode-gallery/<?php echo $row['bq_image']; ?>" alt="east kampala bulletin qrcode" width="100px">  Scan the <strong>QRCODE</strong> to easily access today's devotion.</blockquote>
+                        <blockquote><img class="img img-fluid pr-3 mr-3" src="admin/bulletin-qrcode-gallery/<?php echo $row->bq_image; ?>" alt="east kampala bulletin qrcode" width="100px">  Scan the <strong>QRCODE</strong> to easily access today's devotion.</blockquote>
                         </div>
                         <div id="fb-root"></div>
                     </div>
                     <?php
-                    }
                     }
                     ?>
                 </div>

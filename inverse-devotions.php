@@ -1,20 +1,12 @@
 <?php
 
-//Setting the database credentials
-$server_name = "localhost";
-$username = 'root';
-$password= "";
-$dbname = "inventweb_ngo";
-
-$conn = new mysqli($server_name, $username, $password, $dbname);
-if($conn->connect_error) {
-    die("Connection failed". $conn->connect_error);
-}
+include 'config.php';
 
 $sql = "SELECT * FROM uploaded_files";
-$result = $conn->query($sql);
+$result = $conn->prepare($sql);
+$result->execute();
+$rows = $result->fetchAll();
 
-$conn->close();
 
 
 ?>
@@ -64,29 +56,19 @@ $conn->close();
 
                         <?php
                         $count =1;
-                        if($result->num_rows >0){
-                            while($row = $result->fetch_assoc()){
+                        foreach($rows as $row){
+
                                 echo "<tr>";
                                 echo "<td>".$count."</td>";
-                                echo "<td>".$row['filename']."</td>";
-                                echo '<td><a href="admin/uploads/files/'.$row['filename'].'" class="btn btn-dark" download><img src="assets/img/download.gif" width="20px" class="rounded-circle"> Download</a></td>';
+                                echo "<td>".$row->filename."</td>";
+                                echo '<td><a href="admin/uploads/files/'.$row->filename.'" class="btn btn-dark" download><img src="assets/img/download.gif" width="20px" class="rounded-circle"> Download</a></td>';
                             echo "</tr>";
                                 $count++;
-                            }
-
-                        }else{
-                            echo "<tr>
-                            <td colspan='3'> No Records Found.</td>
-                            </tr>";
                         }
 
                         ?>
                         </tbody>
                 </table>
-                <!-- <div class="d-flex">
-                    <button class="btn btn-warning pr-3" style="border-radius: 0px;">Add</button>
-                    <button class="btn btn-danger" style="padding-left: 4px; margin-left: 10px; border-radius: 0px;">Delete</button>
-                </div> -->
 
             </div>
         </div>

@@ -1,23 +1,11 @@
 <?php
 
-//Setting the database credentials
-$server_name = "localhost";
-$username = 'root';
-$password= "";
-$dbname = "inventweb_ngo";
-
-$conn = new mysqli($server_name, $username, $password, $dbname);
-if($conn->connect_error) {
-    die("Connection failed". $conn->connect_error);
-}
+include'config.php';
 
 $sql = "SELECT * FROM audio_uploads";
-$result = $conn->query($sql);
-
-$conn->close();
-
-
-
+$result = $conn->prepare($sql);
+$result->execute();
+$rows = $result->fetchAll();
 
 ?>
 
@@ -64,26 +52,17 @@ $conn->close();
 
                         <?php
                         $count =1;
-                        if($result->num_rows >0){
-                            while($row = $result->fetch_assoc()){
-
+                        foreach($rows as $row){
                                 $path = "admin/uploads/audios/";
                                 echo "<tr>";
                                 echo "<td>".$count."</td>";
-                                echo "<td>".$row['audio_name']."</td>";
+                                echo "<td>".$row->audio_name."</td>";
                                 echo '<td>
-                                <a href="download-audio.php?file='.$path.''.$row["audio_name"].'" class="btn btn-dark "><img src="assets/img/download.gif" width="20px" class="rounded-circle"> Download</a>
+                                <a href="download-audio.php?file='.$path.''.$row->audio_name.'" class="btn btn-dark "><img src="assets/img/download.gif" width="20px" class="rounded-circle"> Download</a>
                                 </td>';
                             echo "</tr>";
                                 $count++;
                             }
-
-                        }else{
-                            echo "<tr>
-                            <td colspan='3'> No Records Found.</td>
-                            </tr>";
-                        }
-
                         ?>
                         </tbody>
                 </table>

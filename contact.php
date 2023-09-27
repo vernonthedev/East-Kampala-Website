@@ -120,8 +120,9 @@ $c_phone = $_POST['c_phone'];
 $c_subject = $_POST['c_subject'];
 $c_msg = $_POST['c_msg'];
 
-    $c_inquiry = "insert into contact_inquiry(c_id, c_name, c_email, c_phone, c_subject, c_massage) values('', '$c_name', '$c_email', '$c_phone', '$c_subject', '$c_msg')";
-    $run_query = mysqli_query($conn, $c_inquiry);
+    $c_inquiry = "INSERT INTO contact_inquiry(c_id, c_name, c_email, c_phone, c_subject, c_massage) VALUES(?, ?, ?, ?, ?, ?)";
+    $run_query = $conn->prepare($c_inquiry);
+    $run_query->execute(['',$c_name, $c_email, $c_phone, $c_subject, $c_msg]);
 
     if ($run_query){
         echo '<script>swal("Completed","Your Inquiry has been sent successfully to our administrators.", "success");</script>';

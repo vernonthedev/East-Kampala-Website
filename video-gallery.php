@@ -1,7 +1,11 @@
 <?php
 include'config.php';
-$view_data = "select * from video_gallery";
-$run_query = mysqli_query($conn, $view_data);
+
+$sql = "SELECT * FROM video_gallery";
+$run_query = $conn->prepare($sql);
+$run_query->execute();
+$rows = $run_query->fetchAll();
+
 ?>
 <!doctype html>
 <html lang="en">
@@ -37,24 +41,22 @@ $run_query = mysqli_query($conn, $view_data);
         <div class="container pt-3" style="background: rgb(254 0 2 / 10%); border-radius: 20px;">
             <div class="row">
 <?php
-if($run_query-> num_rows > 0){
-while($row = mysqli_fetch_assoc($run_query)) {
+foreach($rows as $row){
 ?>
                 <div class="col-lg-4 col-md-4 col-sm-6">
                     <div class="video-gallery-box">
                         <video width="100%" controls class="rounded">
 
-                            <source src="admin/videos-gallery/<?php echo $row['video_location']; ?>" type="video/mp4">
+                            <source src="admin/videos-gallery/<?php echo $row->video_location; ?>" type="video/mp4">
                             Your browser does not support HTML video.
                         </video>
                         <div class="gallery_imgTitle bg-gradient-primary" >
-                            <h4><?php echo $row['video_title']; ?></h4>
+                            <h4><?php echo $row->video_title; ?></h4>
                         </div>
 
                     </div>
                 </div>
 <?php
-}
 }
 ?>
             </div>

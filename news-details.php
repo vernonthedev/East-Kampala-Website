@@ -1,11 +1,18 @@
 <?php
 include'config.php';
-$view_news = "select * from news WHERE news_id = '".$_GET['id']."'";
-$run_query = mysqli_query($conn, $view_news);
-if($run_query-> num_rows > 0){
-while($row = mysqli_fetch_assoc($run_query)) {
-// $n_img = $row['news_img'];
-?>
+
+$recv = $_GET['id'];
+
+$sql = "SELECT * FROM news WHERE news_id = ?";
+$stmt = $conn->prepare($sql);
+$stmt->execute([$recv]);
+$rows = $stmt->fetchAll();
+foreach($rows as $row){
+    if($recv != $row->id){
+        //show 404 page incase the user enters a value of page not available in the system
+        http_response_code(404);
+    }else{
+        ?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -21,7 +28,7 @@ while($row = mysqli_fetch_assoc($run_query)) {
             <div class="d-table-cell">
                 <div class="container">
                     <div class="page-title-content">
-                        <h2><?php echo $row['news_title']; ?></h2>
+                        <h2><?php echo $row->news_title; ?></h2>
                         <ul>
                             <li><a href="./">Home</a>
                             </li>
@@ -42,14 +49,14 @@ while($row = mysqli_fetch_assoc($run_query)) {
                         <div class="row">
                             <div class="col-lg-12 col-sm-12 col-xs-12">
                                 <div class="news_img">
-                                    <img src="admin/news-images/<?php echo $row['news_img']; ?>">
+                                    <img src="admin/news-images/<?php echo $row->news_img; ?>">
                                 </div>
                             </div>
                             <div class="col-lg-12 col-sm-12 col-xs-12">
                                 <div class="news_content">
-                                    <h3><?php echo $row['news_title']; ?></h3>
-                                    <span><?php echo $row['news_place']; ?>, <?php echo $row['news_date']; ?></span>
-                                    <p><?php echo $row['news_content']; ?></p>
+                                    <h3><?php echo $row->news_title; ?></h3>
+                                    <span><?php echo $row->news_place; ?>, <?php echo $row->news_date; ?></span>
+                                    <p><?php echo $row->news_content; ?></p>
                                 </div>
                             </div>
                         </div>
@@ -77,9 +84,5 @@ while($row = mysqli_fetch_assoc($run_query)) {
 
 </html>
 <?php
-}
-}else{
-    //show 404 page incase the user enters a value of page not available in the system
-    http_response_code(404);
-}
+}}
 ?>
