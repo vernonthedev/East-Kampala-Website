@@ -16,6 +16,20 @@ $rows = $result->fetchAll();
     ?>
 
 </head>
+
+
+<style>
+
+    audio{
+
+        width: 100%;
+        height: 30%;
+
+
+    }
+</style>
+
+
 <?php include'preloader.php'; ?>
 
     <div class="page-title-area" style="background: #0a53be;">
@@ -35,40 +49,36 @@ $rows = $result->fetchAll();
         </div>
     </div>
 
-<div class="container">
-        <div class="row">
-            <div class="col-12 col-md-12 col-xs-12 p-4 main-content mt-5">
-                <!-- main content -->
-                <h5>Download Audio Sermons</h5>
-                <table class="table table-striped table-responsive table-bordered table-hover table-striped">
-                    <thead class="thead-inverse">
-                        <tr class="bg-secondary ">
-                            <th class="h6">Index</th>
-                            <th class="h6">Audio Title</th>
-                            <th class="h6">Action</th>
-                        </tr>
-                        </thead>
-                        <tbody>
 
-                        <?php
-                        $count =1;
-                        foreach($rows as $row){
-                                $path = "admin/uploads/audios/";
-                                echo "<tr>";
-                                echo "<td>".$count."</td>";
-                                echo "<td>".$row->audio_name."</td>";
-                                echo '<td>
-                                <a href="download-audio.php?file='.$path.''.$row->audio_name.'" class="btn btn-dark "><img src="assets/img/download.gif" width="20px" class="rounded-circle"> Download</a>
-                                </td>';
-                            echo "</tr>";
-                                $count++;
-                            }
-                        ?>
-                        </tbody>
-                </table>
 
+<div class="container mt-sm-5 mb-sm-5">
+  <div class="row" >
+  <?php
+foreach($rows as $row){
+?>
+        <div class="col-lg-6 mt-sm-3 mb-3 pb-3">
+        <div class="boo info-horizontal bg-gradient-secondary border-radius-xl d-block d-md-flex p-4 mb-3" >
+            <img src="assets/img/audio.png" class="rounded img img-fluid" alt="image" width="80px" height="100%">
+            <div class="ps-0 ps-md-3 mt-3 mt-md-0">
+            <h5 class="text-white"><?php echo $row->audio_name; ?></h5>
+            <audio src="admin/uploads/audios/<?php echo $row->audio_name?>" controls></audio>
+                <i class="fas fa-arrow-right text-sm ms-1" aria-hidden="true"></i>
+            </a>
             </div>
         </div>
-    </div>
+        </div>
+
+        <?php
+}
+
+?>
+
+
+  </div>
+</div>
+
+
 
     <?php include'footer.php'; ?>
+
+

@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/responsive.css">
     <link rel="stylesheet" href="assets/css/custom.css">
+    <link rel="stylesheet" href="assets/css/aplayer.css">
     <link rel="stylesheet" href="assets/css/modern_look.css">
     <link rel="stylesheet" href="assets/vendor/aos.css">
     <link rel="icon" type="image/png" href="assets/img/sda%20logo%20black.png">
