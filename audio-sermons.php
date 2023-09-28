@@ -20,14 +20,25 @@ $rows = $result->fetchAll();
 
 <style>
 
-    audio{
+/* Customize the container for the audio player */
+.audio-player {
+            width: 300px;
 
-        width: 100%;
-        height: 30%;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Style the audio controls */
+        audio {
+            width: 100%;
+        }
 
 
-    }
+
 </style>
+
 
 
 <?php include'preloader.php'; ?>
@@ -56,17 +67,24 @@ $rows = $result->fetchAll();
   <?php
 foreach($rows as $row){
 ?>
-        <div class="col-lg-6 mt-sm-3 mb-3 pb-3">
-        <div class="boo info-horizontal bg-gradient-secondary border-radius-xl d-block d-md-flex p-4 mb-3" >
-            <img src="assets/img/audio.png" class="rounded img img-fluid" alt="image" width="80px" height="100%">
-            <div class="ps-0 ps-md-3 mt-3 mt-md-0">
-            <h5 class="text-white"><?php echo $row->audio_name; ?></h5>
-            <audio src="admin/uploads/audios/<?php echo $row->audio_name?>" controls></audio>
-                <i class="fas fa-arrow-right text-sm ms-1" aria-hidden="true"></i>
-            </a>
-            </div>
+        <div class="col-lg-3 mt-sm-3 mb-3 pb-3 col-sm-12 col-md-12">
+        <div class="audio-player bg-gradient-light text-center">
+        <img src="assets/icons/audio.svg"  width="70px" style="margin: auto;"/>
+        <blockquote><?php echo $row->audio_name?></blockquote>
+        <audio controls>
+            <source src="admin/uploads/audios/<?php echo $row->audio_name?>" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+
+        <!-- Add other controls as needed (volume, progress bar, etc.) -->
+     </div>
+
         </div>
-        </div>
+
+
+
+
+
 
         <?php
 }
