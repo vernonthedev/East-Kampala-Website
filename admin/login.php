@@ -104,9 +104,7 @@ if(isset($_POST['admin_login'])){
     $view_data = "SELECT * FROM admin WHERE admin_name = ? AND admin_password = ?";
         $result = $conn->prepare($view_data);
         $result->execute([$username, $userpassword]);
-
-        $data = $result->fetchAll();
-        if ($data == 1){
+        if ($result){
             $_SESSION['admin_name'] = $_POST['user_name'];
             echo '<script> window.location.href = "./";</script>';
         }
