@@ -105,7 +105,7 @@
       </div>
     </a>
     <div class="dropdown-menu mt-0 py-3 px-2 mt-3">
-      <a class="dropdown-item ps-3 border-radius-md mb-1" href="#">
+      <a class="dropdown-item ps-3 border-radius-md mb-1" href="coming-soon.php">
       <img src="assets/img/lesson.svg" width="20px" >
         Adult Bible Lesson
       </a>
@@ -113,7 +113,7 @@
       <img src="assets/img/lesson.svg" width="20px" >
         Inverse Bible Lesson
       </a>
-      <a class="dropdown-item ps-3 border-radius-md mb-1" href="#">
+      <a class="dropdown-item ps-3 border-radius-md mb-1" href="coming-soon.php">
       <img src="assets/img/lesson.svg" width="20px" >
         Children's Lesson
       </a>
@@ -183,12 +183,12 @@
       </div>
     </a>
     <div class="dropdown-menu mt-0 py-3 px-2 mt-3">
-      <a class="dropdown-item ps-3 border-radius-md mb-1" href="#">
+      <a class="dropdown-item ps-3 border-radius-md mb-1" href="coming-soon.php">
       <img src="assets/img/construction.svg" width="20px" >
         Church Construction
 
       </a>
-      <a class="dropdown-item ps-3 border-radius-md mb-1" href="#">
+      <a class="dropdown-item ps-3 border-radius-md mb-1" href="coming-soon.php">
       <img src="assets/img/people.svg" width="20px" >
         Church Member Projects
 
@@ -210,7 +210,7 @@
         </div>
       </div>
     </div>
-    <a class="dropdown-item ps-3 border-radius-md mb-1" href="#">
+    <a class="dropdown-item ps-3 border-radius-md mb-1" href="coming-soon.php">
     <img src="assets/img/lesson.svg" width="20px" >
       Adult Lesson
     </a>
@@ -218,7 +218,7 @@
     <img src="assets/img/lesson.svg" width="20px" >
       Inverse Lesson
     </a>
-    <a class="dropdown-item ps-3 border-radius-md mb-1" href="#">
+    <a class="dropdown-item ps-3 border-radius-md mb-1" href="coming-soon.php">
     <img src="assets/img/lesson.svg" width="20px" >
       Children's Lesson
     </a>
@@ -281,12 +281,12 @@
         </div>
       </div>
     </div>
-    <a class="dropdown-item ps-3 border-radius-md mb-1" href="./sections/attention-catchers/alerts.html">
+    <a class="dropdown-item ps-3 border-radius-md mb-1" href="coming-soon.php">
     <img src="assets/img/construction.svg" width="20px" >
       Church Construction
 
     </a>
-    <a class="dropdown-item ps-3 border-radius-md mb-1" href="#">
+    <a class="dropdown-item ps-3 border-radius-md mb-1" href="coming-soon.php">
     <img src="assets/img/people.svg" width="20px" >
       Church Member Projects
     </a>
@@ -303,7 +303,7 @@
             <div class="d-none d-lg-block">
   <ul class="list-group">
     <li class="nav-item list-group-item border-0 p-0">
-      <a class="dropdown-item py-2 ps-3 border-radius-md" href="#">
+      <a class="dropdown-item py-2 ps-3 border-radius-md" href="coming-soon.php">
         <h6 class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">
         <img src="assets/img/bulletin.svg" width="20px" >
         Bulletin</h6>
@@ -311,13 +311,13 @@
       </a>
     </li>
     <li class="nav-item list-group-item border-0 p-0">
-      <a class="dropdown-item py-2 ps-3 border-radius-md" href="#">
+      <a class="dropdown-item py-2 ps-3 border-radius-md" href="coming-soon.php">
         <h6 class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0"><img src="assets/img/family.svg" width="20px" > Families</h6>
         <span class="text-sm">We are a Family of God</span>
       </a>
     </li>
     <li class="nav-item list-group-item border-0 p-0">
-      <a class="dropdown-item py-2 ps-3 border-radius-md" href="#">
+      <a class="dropdown-item py-2 ps-3 border-radius-md" href="coming-soon.php">
         <h6 class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0"><img src="assets/img/counselor.svg" width="20px" > Counselling Program</h6>
         <span class="text-sm">Talk To Our Pastors Privately For Help.</span>
       </a>
@@ -329,7 +329,7 @@
       </a>
     </li>
     <li class="nav-item list-group-item border-0 p-0">
-      <a class="dropdown-item py-2 ps-3 border-radius-md" href="#">
+      <a class="dropdown-item py-2 ps-3 border-radius-md" href="coming-soon.php">
         <h6 class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0"><img src="assets/img/annoucement.svg" width="20px" > Announcements</h6>
         <span class="text-sm">Latest Announcements of the day.</span>
       </a>
@@ -339,17 +339,17 @@
 
 <div class="row d-lg-none">
   <div class="col-md-12 g-0">
-    <a class="dropdown-item py-2 ps-3 border-radius-md" href="#">
+    <a class="dropdown-item py-2 ps-3 border-radius-md" href="coming-soon.php">
       <h6 class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0"><img src="assets/img/bulletin.svg" width="20px" > Bulletin</h6>
       <span class="text-sm">Check Out This Sabbath's Program Line up</span>
     </a>
 
-    <a class="dropdown-item py-2 ps-3 border-radius-md" href="#">
+    <a class="dropdown-item py-2 ps-3 border-radius-md" href="coming-soon.php">
       <h6 class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0"><img src="assets/img/family.svg" width="20px" > Families</h6>
       <span class="text-sm">We are a Family of God</span>
     </a>
 
-    <a class="dropdown-item py-2 ps-3 border-radius-md" href="#">
+    <a class="dropdown-item py-2 ps-3 border-radius-md" href="coming-soon.php">
       <h6 class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0"><img src="assets/img/counselor.svg" width="20px" > Counselling Program</h6>
       <span class="text-sm">Talk To Our Pastors Privately For Help.</span>
     </a>
@@ -359,7 +359,7 @@
       <span class="text-sm">Take part in our Spiritual Events</span>
     </a>
 
-    <a class="dropdown-item py-2 ps-3 border-radius-md" href="#">
+    <a class="dropdown-item py-2 ps-3 border-radius-md" href="coming-soon.php">
       <h6 class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0"><img src="assets/img/annoucement.svg" width="20px" > Announcements</h6>
       <span class="text-sm">List of Today's latest updates</span>
     </a>
@@ -369,13 +369,13 @@
           </ul>
         </li>
         <li class="nav-item ms-lg-auto">
-          <a class="nav-link nav-link-icon me-2" href="#" target="_blank">
+          <a class="nav-link nav-link-icon me-2" href="coming-soon.php" target="_blank">
             <p class="d-inline text-sm z-index-1 font-weight-bold" data-bs-toggle="tooltip" data-bs-placement="left" title="Discuss">Blog</p>
           </a>
         </li>
 
         <li class="nav-item ms-lg-auto">
-          <a class="nav-link nav-link-icon me-2" href="#" target="_blank">
+          <a class="nav-link nav-link-icon me-2" href="https://www.youtube.com/@eastkampalasdachurch" target="_blank">
             <i class="fa fa-youtube me-1"></i>
             <p class="d-inline text-sm z-index-1 font-weight-bold" data-bs-toggle="tooltip" data-bs-placement="right" title="Subscribe To Our Channel">Youtube</p>
           </a>
