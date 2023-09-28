@@ -30,7 +30,7 @@
   <a href="about.php" class="dropdown-item border-radius-md">
     <span><img src="assets/img/overview.svg" width="20px" > Overview</span>
   </a>
-  <a href="#" class="dropdown-item border-radius-md">
+  <a href="history.php" class="dropdown-item border-radius-md">
     <span><img src="assets/img/history.png" width="20px" class="rounded-circle"> History</span>
   </a>
   <a href="#" class="dropdown-item border-radius-md" data-bs-toggle="modal" data-bs-target="#donationModal">
@@ -46,7 +46,7 @@
   <a href="#" class="dropdown-item border-radius-md" data-bs-toggle="modal" data-bs-target="#baptismModal">
     <span><img src="assets/img/bap.svg" width="20px" > Baptism</span>
   </a>
-  <a href="#" class="dropdown-item border-radius-md">
+  <a href="https://adventist.news/news/fasting-and-prayer-for-witnessing" class="dropdown-item border-radius-md">
     <span><img src="assets/img/bible.png" width="20px" > Prayer And Fasting</span>
   </a>
 </div>
@@ -62,7 +62,7 @@
   <a href="about.php" class="dropdown-item border-radius-md">
     <span><img src="assets/img/overview.svg" width="20px" > Overview</span>
   </a>
-  <a href="#" class="dropdown-item border-radius-md">
+  <a href="history.php" class="dropdown-item border-radius-md">
     <span><img src="assets/img/history.png" width="20px" class="rounded-circle"> History</span>
   </a>
   <a href="#" class="dropdown-item border-radius-md" data-bs-toggle="modal" data-bs-target="#donationModal">
@@ -78,7 +78,7 @@
   <a href="#" class="dropdown-item border-radius-md" data-bs-toggle="modal" data-bs-target="#baptismModal">
     <span><img src="assets/img/bap.svg" width="20px" > Baptism</span>
   </a>
-  <a href="#" class="dropdown-item border-radius-md">
+  <a href="https://adventist.news/news/fasting-and-prayer-for-witnessing" class="dropdown-item border-radius-md">
     <span><img src="assets/img/bible.png" width="20px" > Prayer and Fasting</span>
   </a>
 

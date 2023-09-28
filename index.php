@@ -383,6 +383,7 @@ foreach($rows as $row){
                 <h2>Church Board Members</h2>
                     <p>Quis ipsum suspendice consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendices gravida.</p>
             </div>
+            <section class="profiles">
 
 <?php
 //SELECTING ALL THE CHURCH MEMBER HEADS
@@ -390,39 +391,135 @@ $view_data = "SELECT * FROM member_list";
 $run_query = $conn->prepare($view_data);
 $run_query->execute();
 ?>
-            <div class="team_slider owl-carousel owl-theme">
+          <div class="team_slider owl-carousel owl-theme">
 <?php
 $rows = $run_query->fetchAll();
 foreach($rows as $row){
 ?>
-                <div class="item">
-                    <div class="team-item">
-                        <div class="image">
-                            <img src="admin/team-images/<?php echo $row->member_img; ?>" alt="image" class="img img-thumbnail">
-                            <ul class="social">
-                                <li><a href="#" target="_blank"><i class="bx bxl-facebook"></i></a>
-                                </li>
-                                <li><a href="#" target="_blank"><i class="bx bxl-twitter"></i></a>
-                                </li>
-                                <li><a href="#" target="_blank"><i class="bx bxl-linkedin"></i></a>
-                                </li>
-                                <li><a href="#" target="_blank"><i class="bx bxl-instagram"></i></a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="content">
+<a href="#" id="aboutImage"><img id="aboutImage" src="admin/team-images/<?php echo $row->member_img; ?>" alt="">
 
-                            <h3><?php echo $row->member_name; ?></h3>
-                            <span><?php echo $row->member_title; ?></span>
-                        </div>
-                    </div>
-                </div>
+  <div>
+    <h3 class="text-white"><?php echo $row->member_name; ?></h3>
+    <span id="image"><?php echo $row->member_title; ?></span>
+  </div>
+</a>
 <?php
 }
 ?>
+</section>
+
+<style>
+*,
+*:after,
+*:before {
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+}
+.profiles {
+display: flex;
+justify-content: center;
+align-content: center;
+}
+
+.profiles {
+max-width: 70em;
+margin: 0 auto;
+padding: 0 2em;
+justify-content: space-between;
+}
+a#aboutImage {
+transition: 0.3s all ease-in;
+position: relative;
+z-index: 1;
+filter: grayscale(100%);
+opacity: 0.9;
+}
+
+a#aboutImage:hover {
+transform: scale(1.2);
+z-index: 2;
+filter: grayscale(0);
+opacity: 1;
+}
+
+a#aboutImage div {
+position: absolute;
+width: 100%;
+height: 0;
+bottom: 0;
+background-color: rgba(0, 0, 0, 0.4);
+padding: 8px;
+font: 400 12px/1 arial;
+opacity: 0;
+transition: 0.3s all ease-in;
+color: #fff;
+overflow: hidden;
+border-top: 1px solid rgba(0, 0, 0, 0);
+border-bottom-left-radius: 0;
+border-bottom-right-radius: 0;
+}
+
+
+span#image {
+color: #ddd;
+}
+
+a#aboutImage:hover div {
+opacity: 1;
+height: 50px;
+bottom: 3px;
+border-top: 1px solid rgba(0, 0, 0, 0.2);
+border-bottom-left-radius: 4px;
+border-bottom-right-radius: 4px;
+}
+
+img#aboutImage{
+height: 250px;
+max-width: 100%;
+transition: 0.3s all ease-in;
+}
+
+a#aboutImage:first-child img {
+border-top-left-radius: 4px;
+border-bottom-left-radius: 4px;
+}
+a#aboutImage:last-child img {
+border-top-right-radius: 4px;
+border-bottom-right-radius: 4px;
+}
+
+a#aboutImage:hover img {
+border-radius: 4px;
+box-shadow: 0 0 10px 10px rgba(0, 0, 0, 0.06);
+}
+
+@media (max-width: 767px) {
+.profiles {
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+.profiles a {
+  width: 100%;
+}
+
+img#aboutImage{
+height: 600px;
+max-width: 100%;
+transition: 0.3s all ease-in;
+}
+}
+
+</style>
+
+
             </div>
         </div>
     </section>
+
+
+
+
 
     <section class="testimonials-section pt-50 pb-50">
         <div class="container">

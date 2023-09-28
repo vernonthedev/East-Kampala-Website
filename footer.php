@@ -78,7 +78,7 @@
                                 </li>
                                 <li><a href="privacy-policy.html">Privacy Policy</a>
                                 </li>
-                                <li>Designed by <a href="https://vernonthedev.github.io/webapps/">vernonthedev</a>
+                                <li>East Kampala Seventh Day Adventist Church
                                 </li>
                             </ul>
                         </div>
@@ -122,5 +122,5 @@
     <script src="assets/vendor/aos.js"></script>
     <script src="admin/assets/js/sweetalert.js"></script>
 
-
+    <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
     <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v11.0" nonce="wjI79STh"></script>
